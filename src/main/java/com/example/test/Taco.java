@@ -1,2 +1,11 @@
-package com.example.test;public class Taco {
+package com.example.test;
+
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class Taco {
+    private String name;
+    private List<Ingredient> ingredients;
 }
