@@ -30,18 +30,7 @@ public class JdbcIngredientRepository implements IngredientRepository {
     public Optional<Ingredient> findById(String id) {
         List<Ingredient> results = jdbcTemplate.query(
                 "select id, name, type from Ingredient where id=?",
-                //this::mapRowToIngredient,
-                new RowMapper<Ingredient>() {
-                    public Ingredient mapRow(ResultSet rs, int rowNum)
-                            throws SQLException {
-                        return new Ingredient(
-                                rs.getString("id"),
-                                rs.getString("name"),
-                                Ingredient.Type.valueOf(rs.getString("type")));
-                    }
-
-                    ;
-                },
+                this::mapRowToIngredient,
                 id);
         return results.size() == 0 ?
                 Optional.empty() :

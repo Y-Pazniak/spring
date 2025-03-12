@@ -9,7 +9,6 @@
     import lombok.extern.slf4j.Slf4j;
     import com.example.test.Ingredient.Type;
 
-    import java.util.Arrays;
     import java.util.List;
     import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@
         }
 
         @ModelAttribute
-        public void addIngredientsModel(Model model) {
+        public void addIngredientsToModel(Model model) {
             List<Ingredient> ingredients = ingredientRepo.findAll();
 
             Type[] types = Ingredient.Type.values();
