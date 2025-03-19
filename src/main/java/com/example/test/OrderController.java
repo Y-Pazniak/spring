@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.util.Date;
+
 @Slf4j
 @Controller
 @RequestMapping("/orders")
@@ -31,6 +33,7 @@ public class OrderController {
         if (errors.hasErrors()) {
             return "orderForm";
         }
+        order.setPlacedAt(new Date());
         orderRepo.save(order);
         sessionStatus.setComplete();
         log.info("Order submitted: {}", order);

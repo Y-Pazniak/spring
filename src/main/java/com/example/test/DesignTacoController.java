@@ -11,6 +11,7 @@
 
     import java.util.List;
     import java.util.stream.Collectors;
+    import java.util.stream.StreamSupport;
 
     @Slf4j
     @Controller
@@ -27,7 +28,7 @@
 
         @ModelAttribute
         public void addIngredientsToModel(Model model) {
-            List<Ingredient> ingredients = ingredientRepo.findAll();
+            Iterable<Ingredient> ingredients = ingredientRepo.findAll();
 
             Type[] types = Ingredient.Type.values();
             for (Type type : types) {
@@ -60,7 +61,7 @@
             return "redirect:/orders/current";
         }
 
-        private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-            return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
+        private Iterable<Ingredient> filterByType(Iterable<Ingredient> ingredients, Type type) {
+            return StreamSupport.stream(ingredients.spliterator(), false).filter(x -> x.getType().equals(type)).collect(Collectors.toList());
         }
     }
